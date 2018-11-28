@@ -2,48 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NumberWizard : MonoBehaviour {
+public class NumberWizard : MonoBehaviour
+{
 
-    int maximum = 100;
-    int min = 1;
-    int guess = 50;
+    int maximum;
+    int min;
+    int guess;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        StartGame();
+    }
 
+    void StartGame()
+    {
+        maximum = 100;
+        min = 1;
+        guess = 50;
 
-        Debug.Log("Welcome to number wizard");
-        Debug.Log("Please select a number.");
+        Debug.Log("Welcome to number wizard!");
+        Debug.Log("Please mentally select a number.");
         Debug.Log("The max number is: " + maximum);
         Debug.Log("The lowest number is: " + min);
-        Debug.Log("Tell me if your number is higher or lower than the guess!");
+        Debug.Log("I demand you tell me if your number is higher or lower than: " + guess);
         Debug.Log("Push Up for higher / Down for lower / Enter for right on!");
-	}
-	
-	// Update is called once per frame
-	void Update (){
+        maximum = maximum + 1;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         // Detect when up key pressed
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.Log("Up Arrow key was pressed.");
             min = guess;
-            guess = (maximum + min) / 2;
-            Debug.Log(guess);
+            NextGuess();
         }
 
         // Detect when Down key pressed
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log("Down Arrow key was pressed.");
             maximum = guess;
-            guess = (maximum + min) / 2;
-            Debug.Log(guess);
+            NextGuess();
         }
 
         //Detect when the Return key is pressed down
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            Debug.Log("Enter key was pressed.");
+            Debug.Log("We guessed it!");
+            StartGame();
         }
+    }
+    void NextGuess()
+    {
+        guess = (maximum + min) / 2;
+        Debug.Log("Is your guess higher or lower than: " + guess);
     }
 }
